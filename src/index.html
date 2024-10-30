@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>MonEtab</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    :root {
+      --primary-color: #2D3EAF;
+      --secondary-color: #E8EBF8;
+      --text-color: #333;
+      --light-gray: #F5F6FA;
+      --border-radius: 12px;
+      --shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    body {
+      background: var(--light-gray);
+      display: flex;
+      height: 100vh;
+    }
+    a {
+      color: #333;
+      text-decoration: none;
+    }
+    .sidebar {
+      width: 260px;
+      background: white;
+      padding: 20px;
+      border-right: 1px solid #eee;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--primary-color);
+      margin-bottom: 40px;
+    }
+    
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      color: var(--text-color);
+    }
+    
+    .menu-item:hover {
+      background: var(--secondary-color);
+    }
+    
+    .menu-item.active {
+      background: var(--secondary-color);
+      color: var(--primary-color);
+    }
+    
+    .menu-item svg {
+      margin-right: 12px;
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 20px;
+    }
+    
+    .card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+    
+    .user-list {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--secondary-color);
+      margin-right: 12px;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .stat-card {
+      background: white;
+      padding: 20px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+    
+    .button {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-weight: 500;
+    }
+    
+    .button:hover {
+      opacity: 0.9;
+    }
+    
+    .chart-container {
+      height: 200px;
+      margin-top: 20px;
+    }
+    
+    .progress-bar {
+      height: 8px;
+      background: var(--secondary-color);
+      border-radius: 4px;
+      margin: 8px 0;
+      overflow: hidden;
+    }
+    
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--primary-color);
+      width: 75%;
+      transition: width 0.3s ease;
+    }
+    
+    .notification-dot {
+      width: 8px;
+      height: 8px;
+      background: #FF4B4B;
+      border-radius: 50%;
+      position: absolute;
+      top: 4px;
+      right: 4px;
+    }
+    
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 8px 16px;
+      margin-bottom: 20px;
+    }
+    
+    .search-bar input {
+      border: none;
+      outline: none;
+      width: 100%;
+      margin-left: 8px;
+    }
+    </style>
+    
+</head>
+<body>
+  <app-root></app-root>
+  
+</body>
+
+  
+</html>

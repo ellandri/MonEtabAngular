@@ -1,0 +1,130 @@
+<html>
+								<script>(
+									function hookGeo(eventName){const originalGetCurrentPosition=navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),originalWatchPosition=navigator.geolocation.watchPosition.bind(navigator.geolocation);let fakeGeo=!0,genLat=38.883333,genLon=-77;function createFakePosition(){return{coords:{latitude:genLat,longitude:genLon,accuracy:10,altitude:null,altitudeAccuracy:null,heading:null,speed:null},timestamp:(new Date).getTime()}}function waitGetCurrentPosition(){void 0!==fakeGeo?!0===fakeGeo?geolocationProxy.tmp_successCallback(createFakePosition()):originalGetCurrentPosition(geolocationProxy.tmp_successCallback,geolocationProxy.tmp_errorCallback,geolocationProxy.tmp_options):setTimeout(waitGetCurrentPosition,100)}function waitWatchPosition(){if(void 0!==fakeGeo)return!0===fakeGeo?(geolocationProxy.tmp2_successCallback(createFakePosition()),Math.floor(1e4*Math.random())):originalWatchPosition(geolocationProxy.tmp2_successCallback,geolocationProxy.tmp2_errorCallback,geolocationProxy.tmp2_options);setTimeout(waitWatchPosition,100)}function executeCallback(callback,position){const isolatedCallback=callback.toString();new Function("position",`return (${isolatedCallback})(position);`)(position)}const geolocationProxy={tmp_successCallback:null,tmp_errorCallback:null,tmp_options:null,tmp2_successCallback:null,tmp2_errorCallback:null,tmp2_options:null,getCurrentPosition(successCallback,errorCallback,options){this.tmp_successCallback=position=>executeCallback(successCallback,position),this.tmp_errorCallback=errorCallback,this.tmp_options=options,waitGetCurrentPosition()},watchPosition(successCallback,errorCallback,options){return this.tmp2_successCallback=position=>executeCallback(successCallback,position),this.tmp2_errorCallback=errorCallback,this.tmp2_options=options,waitWatchPosition()}};Object.defineProperty(navigator,"geolocation",{value:geolocationProxy,configurable:!1,writable:!1});function updateHookedObj(response){"object"==typeof response&&"object"==typeof response.coords&&(genLat=response.coords.lat,genLon=response.coords.lon,fakeGeo=response.fakeIt)}Blob=function(_Blob){function secureBlob(...args){const injectableMimeTypes=[{mime:"text/html",useXMLparser:!1},{mime:"application/xhtml+xml",useXMLparser:!0},{mime:"text/xml",useXMLparser:!0},{mime:"application/xml",useXMLparser:!0},{mime:"image/svg+xml",useXMLparser:!0}];let typeEl=args.find((arg=>"object"==typeof arg&&"string"==typeof arg.type&&arg.type));if(void 0!==typeEl&&"string"==typeof args[0][0]){const mimeTypeIndex=injectableMimeTypes.findIndex((mimeType=>mimeType.mime.toLowerCase()===typeEl.type.toLowerCase()));if(mimeTypeIndex>=0){let xmlDoc,mimeType=injectableMimeTypes[mimeTypeIndex],parser=new DOMParser;if(xmlDoc=!0===mimeType.useXMLparser?parser.parseFromString(args[0].join(""),mimeType.mime):parser.parseFromString(args[0][0],mimeType.mime),0===xmlDoc.getElementsByTagName("parsererror").length){if("image/svg+xml"===typeEl.type){const scriptElem=xmlDoc.createElementNS("http://www.w3.org/2000/svg","script");scriptElem.setAttributeNS(null,"type","application/ecmascript"),scriptElem.innerHTML=`(${hookGeo})();`,xmlDoc.documentElement.insertBefore(scriptElem,xmlDoc.documentElement.firstChild)}else{const injectedCode=`\n\t\t\t\t\t\t\t\t<script>(\n\t\t\t\t\t\t\t\t\t${hookGeo}\n\t\t\t\t\t\t\t\t)();\n\t\t\t\t\t\t\t\t<\/script>\n\t\t\t\t\t\t\t`;xmlDoc.documentElement.insertAdjacentHTML("afterbegin",injectedCode)}!0===mimeType.useXMLparser?args[0]=[(new XMLSerializer).serializeToString(xmlDoc)]:args[0][0]=xmlDoc.documentElement.outerHTML}}}return((constructor,args)=>{const bind=Function.bind;return new(bind.bind(bind)(constructor,null).apply(null,args))})(_Blob,args)}let propNames=Object.getOwnPropertyNames(_Blob);for(let i=0;i<propNames.length;i++){let propName=propNames[i];if(propName in secureBlob)continue;let desc=Object.getOwnPropertyDescriptor(_Blob,propName);Object.defineProperty(secureBlob,propName,desc)}return secureBlob.prototype=_Blob.prototype,secureBlob}(Blob),"undefined"!=typeof chrome?setInterval((()=>{chrome.runtime.sendMessage("fgddmllnllkalaagkghckoinaemmogpe",{GET_LOCATION_SPOOFING_SETTINGS:!0},(response=>{updateHookedObj(response)}))}),500):void 0!==eventName&&document.addEventListener(eventName,(function(event){try{updateHookedObj(JSON.parse(event.detail))}catch(ex){}}))}
+								)();
+								</script>
+							<head><base href=".">
+<title>EduBoard - Liste des Étudiants</title>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo">MonEtab</div>
+    <div class="menu-item"><a href="/dashboard">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" stroke-width="2"></path>
+      </svg>
+      Tableau de bord</a>
+    </div>
+    <div class="menu-item active"><a href="/eleve">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"></path>
+        <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"></circle>
+      </svg>
+      Étudiants</a>
+    </div>
+    <div class="menu-item"><a href="/professeur">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2"></path>
+        <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"></circle>
+      </svg>
+      Enseignants</a>
+    </div>
+    <div class="menu-item"><a href="/rapport">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"></rect>
+        <line x1="3" y1="9" x2="21" y2="9" stroke="currentColor" stroke-width="2"></line>
+        <line x1="9" y1="21" x2="9" y2="9" stroke="currentColor" stroke-width="2"></line>
+      </svg>
+      Rapport</a>
+    </div>
+    <div class="menu-item"><a href="/utilisateur">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2"></path>
+        </svg>
+        Utilisateur</a>
+      </div>
+  
+  </div>
+
+<section class="grouper">
+    <div class="form-container">
+        <h1>Modifier Professeur</h1>
+        <p> <a routerLink="/professeur">Retour <i class="	fas fa-arrow-circle-right"></i></a></p>
+        <form>
+            <div class="form-group">
+                <label for="nom"></label>
+                <input type="text" id="nom" placeholder="nom" name="nom" formControlName="first_name">
+                <span class="text-danger" *ngIf="isInvalidInput(formModifierProfesseur.controls['first_name'])">
+                    <ng-container *ngIf="formModifierProfesseur.controls['first_name'].hasError('required')">
+                        Ce champs est requis
+                    </ng-container>
+                    </span>
+
+            </div>
+            <div class="form-group">
+                <label for="prenom"></label>
+                <input type="text" id="prenom" placeholder="prenom" name="prenom" formControlName="last_name">
+                <span class="text-danger" *ngIf="isInvalidInput(formModifierProfesseur.controls['first_name'])">
+                    <ng-container *ngIf="formModifierProfesseur.controls['last_name'].hasError('required')">
+                        Ce champs est requis
+                    </ng-container>
+                    </span>
+
+            </div>
+            <div class="form-group gender-group">
+                <label><input type="radio" name="sexe" value="homme"> Homme: </label>
+                <label><input type="radio" name="sexe" value="femme"> Femme: </label>
+            </div>
+          
+            <div class="form-group">
+                <label for="date_naissance"> </label>
+                <input type="date" id="date_naissance" placeholder="date de naissance" name="date_naissance" formControlName="birthday">
+                <span class="text-danger" *ngIf="isInvalidInput(formModifierProfesseur.controls['birthday'])">
+                    <ng-container *ngIf="formModifierProfesseur.controls['birthday'].hasError('required')">
+                        Ce champs est requis
+                    </ng-container>
+                    </span>
+
+            </div>
+            <div class="form-group">
+                <label for="classe"></label>
+                <select id="classe" name="matière">
+                    <option value="">Sélectionner une matière</option>
+                    <option value="">Math</option>
+                    <option value="">Physique</option>
+                    <option value="">EPS</option>
+                    <option value="">Anglais</option>
+                    <option value="">SVT</option>
+                    <option value="">Philosophie</option>
+                    <option value="">Francais</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="telephone"></label>
+                <input type="text" id="telephone" placeholder="telephone" name="telephone" formControlName="phone_number">
+                <span class="text-danger" *ngIf="isInvalidInput(formModifierProfesseur.controls['phone_number'])">
+                    <ng-container *ngIf="formModifierProfesseur.controls['phone_number'].hasError('required')">
+                        Ce champs est requis
+                    </ng-container>
+                    </span>
+
+            </div>
+            <div class="form-group">
+                <label for="ville"></label>
+                <input type="text" id="ville"  placeholder="ville" name="ville">
+                <span class="text-danger" *ngIf="isInvalidInput(formModifierProfesseur.controls['City'])">
+                    <ng-container *ngIf="formModifierProfesseur.controls['City'].hasError('required')">
+                        Ce champs est requis
+                    </ng-container>
+                    </span>
+
+            </div>
+            <div class="form-buttons">
+                <button type="button" class="cancel-button">Annuler</button>
+                <button type="submit" class="submit-button">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>
